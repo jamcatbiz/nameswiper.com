@@ -55,6 +55,14 @@
   />
 
   <SettingsModule
+    title="Sign Out"
+    editable={false}
+    fields={[]}
+    editButtonTitle="Sign Out"
+    editLink="/account/sign_out"
+  />
+
+  <SettingsModule
     title="Danger Zone"
     editable={false}
     dangerous={true}

@@ -9,18 +9,20 @@
   <title>Change Email Subscription</title>
 </svelte:head>
 
-<h1 class="text-2xl font-bold mb-6">Email Subscription</h1>
+<div class="flex flex-col w-auto justify-center items-center mx-4 mb-12">
+  <h1 class="text-2xl font-bold mb-6">Email Subscription</h1>
 
-<SettingsModule
-  editable={true}
-  title="Subscription"
-  message={unsubscribed
-    ? "You are currently unsubscribed from emails"
-    : "You are currently subscribed to emails"}
-  saveButtonTitle={unsubscribed ? "Re-subscribe" : "Unsubscribe"}
-  successBody={unsubscribed
-    ? "You have been re-subscribed to emails"
-    : "You have been unsubscribed from emails"}
-  formTarget="/account/api?/toggleEmailSubscription"
-  fields={[]}
-/>
+  <SettingsModule
+    editable={true}
+    title="Subscription"
+    message={unsubscribed
+      ? "You are currently unsubscribed from emails"
+      : "You are currently subscribed to emails"}
+    saveButtonTitle={unsubscribed ? "Re-subscribe" : "Unsubscribe"}
+    successBody={unsubscribed
+      ? "You have been re-subscribed to emails"
+      : "You have been unsubscribed from emails"}
+    formTarget="/account/api?/toggleEmailSubscription"
+    fields={[]}
+  />
+</div>
