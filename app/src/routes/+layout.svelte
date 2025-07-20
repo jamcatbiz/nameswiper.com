@@ -9,6 +9,26 @@
   import IconAccount from "~icons/fa6-solid/circle-user"
   // @ts-ignore
   import IconMenu from "~icons/fa6-solid/bars"
+  // @ts-ignore
+  import IconBlog from "~icons/fa6-solid/newspaper"
+  // @ts-ignore
+  import IconContribute from "~icons/fa6-solid/mug-hot"
+  // @ts-ignore
+  import IconSearch from "~icons/fa6-solid/magnifying-glass"
+  // @ts-ignore
+  import IconHome from "~icons/fa6-solid/house"
+  // @ts-ignore
+  import IconContact from "~icons/fa6-solid/envelope-open-text"
+  // @ts-ignore
+  import IconPrivacy from "~icons/fa6-solid/eye"
+  // @ts-ignore
+  import IconTerms from "~icons/fa6-solid/scroll"
+  // @ts-ignore
+  import IconMatches from "~icons/fa6-solid/heart"
+  // @ts-ignore
+  import IconSettings from "~icons/fa6-solid/gear"
+  // @ts-ignore
+  import IconBilling from "~icons/fa6-solid/file-invoice-dollar"
 
   interface Props {
     children?: import("svelte").Snippet
@@ -58,9 +78,12 @@
           tabindex="0"
           class="menu menu-lg dropdown-content mt-3 z-1 shadow-sm bg-base-100 rounded-box w-52 font-bold"
         >
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/contribute">Contribute</a></li>
-          <li><a href="/search">Search</a></li>
+          <li><a href="/"><IconHome />Home</a></li>
+          <li><a href="/blog"><IconBlog />Blog</a></li>
+          <li><a href="/contribute"><IconContribute />Contribute</a></li>
+          <li><a href="/account"><IconMatches />Likes</a></li>
+          <li><a href="/account/settings"><IconSettings />Admin</a></li>
+          <li><a href="/account/billing"><IconBilling />Billing</a></li>
         </ul>
       </li>
     </ul>
@@ -78,26 +101,28 @@
   <footer
     class="footer md:footer-horizontal p-10 gap-x-48 lg:gap-x-64 xl:gap-x-96 place-content-center text-base"
   >
+  <aside>
+    <span class="footer-title opacity-80">Sincerely</span>
+    <a class="max-w-[260px]" href="/mission">
+      <div class="font-bold text-3xl mb-1">{WebsiteName}</div>
+      <div class="font-medium mb-3">Find A Name You Love</div>
+      <div class="font-light">
+        Work together with your friends and family to find the perfect name
+        for your baby, pet, or new identity. Swipe and see what everyone
+        thinks!
+      </div>
+      <div class="link text-sm font-bold mt-2">Learn More</div>
+    </a>
+  </aside>
     <nav>
       <span class="footer-title opacity-80">Explore</span>
-      <a class="link link-hover mb-1" href="/">Home</a>
-      <a class="link link-hover mb-1" href="/account">Account</a>
-      <a class="link link-hover my-1" href="/blog">Blog</a>
-      <a class="link link-hover my-1" href="/contribute">Contribute</a>
-      <a class="link link-hover my-1" href="/contact_us">Contact Us</a>
+      <a class="link link-hover mb-1 flex gap-4 items-center" href="/"><IconHome />Home</a>
+      <a class="link link-hover mb-1 flex gap-4 items-center" href="/account"><IconAccount />Account</a>
+      <a class="link link-hover my-1 flex gap-4 items-center" href="/blog"><IconBlog />Blog</a>
+      <a class="link link-hover my-1 flex gap-4 items-center" href="/contribute"><IconContribute />Contribute</a>
+      <a class="link link-hover my-1 flex gap-4 items-center" href="/contact_us"><IconContact />Contact Us</a>
+      <a class="link link-hover my-1 flex gap-4 items-center" href="/privacy"><IconPrivacy />Privacy Policy</a>
+      <a class="link link-hover my-1 flex gap-4 items-center" href="/terms"><IconTerms />Terms & Conditions</a>
     </nav>
-    <aside>
-      <span class="footer-title opacity-80">Sincerely</span>
-      <a class="max-w-[260px]" href="/mission">
-        <div class="font-bold text-3xl mb-1">{WebsiteName}</div>
-        <div class="font-medium mb-3">Find A Name You Love</div>
-        <div class="font-light">
-          Work together with your friends and family to find the perfect name
-          for your baby, pet, or new identity. Swipe and see what everyone
-          thinks!
-        </div>
-        <div class="link text-sm font-bold mt-2">Learn More</div>
-      </a>
-    </aside>
   </footer>
 </div>

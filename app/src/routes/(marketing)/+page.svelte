@@ -132,14 +132,10 @@
           <p>
             <button
               onclick={() => help_modal.showModal()}
-              class="btn btn-ghost text-lg link font-medium">Help?</button
+              class="btn btn-ghost text-lg link font-medium">Tutorial?</button
             >
           </p>
         </div>
-        <p class="font-light">
-          <a href="/account" class="link font-medium">Make an account</a> to save
-          your preferences.
-        </p>
         <div class="flex flex-col pt-4">
           <div class="stack h-100 w-80">
             <div class="flex">
@@ -253,6 +249,9 @@
           </form>
         </div>
       </div>
+      <p class="font-light pt-6">
+        <a href="/account" class="link font-medium">Save, view, and edit your preferences</a>
+      </p>
     </div>
   </div>
 </div>
@@ -274,7 +273,7 @@
       </div>
     </div>
     <div class="flex items-center">
-      <p class="pr-3">If not, swipe right or tap</p>
+      <p class="pr-3">If not, swipe left or tap</p>
       <div
         class="btn shadow-lg btn-circle btn-soft btn-error touch-manipulation"
       >
