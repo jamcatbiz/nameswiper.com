@@ -10,13 +10,13 @@ export const sharedAppearance = {
     default: {
       colors: {
         brand: "oklch(var(--p))",
-        brandAccent: "oklch(var(--ac))",
-        inputText: "oklch(var(--n))",
+        brandAccent: "oklch(var(--p))",
+        inputText: "oklch(var(--bc))",
         brandButtonText: "oklch(var(--pc))",
         messageText: "oklch(var(--b))",
         dividerBackground: "oklch(var(--n))",
         inputLabelText: "oklch(var(--n))",
-        defaultButtonText: "oklch(var(--n))",
+        defaultButtonText: "oklch(var(--pc))",
         anchorTextColor: "oklch(var(--p))",
       },
       fontSizes: {
