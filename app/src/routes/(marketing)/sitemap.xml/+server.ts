@@ -1,6 +1,9 @@
 import type { RequestHandler } from "@sveltejs/kit"
 import * as sitemap from "super-sitemap"
 import { WebsiteBaseUrl } from "../../../config"
+import { nameData } from "../names"
+
+
 
 export const prerender = true
 
