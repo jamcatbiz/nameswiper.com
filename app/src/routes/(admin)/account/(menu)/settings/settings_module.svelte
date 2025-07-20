@@ -63,7 +63,9 @@
   }
 </script>
 
-<div class="card p-6 pb-7 mt-8 max-w-xl flex flex-col md:flex-row shadow-sm">
+<div
+  class="card m-4 p-6 pb-7 mt-8 max-w-xl flex flex-col md:flex-row shadow-sm"
+>
   {#if title}
     <div class="text-xl font-bold mb-3 w-48 md:pr-8 flex-none">{title}</div>
   {/if}
@@ -99,7 +101,7 @@
         {#each fields as field}
           {#if field.label}
             <label for={field.id}>
-              <span class="text-sm text-gray-500">{field.label}</span>
+              <span class="text-sm font-light">{field.label}</span>
             </label>
           {/if}
           {#if editable}
@@ -121,7 +123,7 @@
         {/each}
 
         {#if $page?.form?.errorMessage}
-          <p class="text-red-700 text-sm font-bold mt-1">
+          <p class="text-error text-sm font-bold mt-1">
             {$page?.form?.errorMessage}
           </p>
         {/if}
@@ -132,7 +134,7 @@
               type="submit"
               class="ml-auto btn btn-sm mt-3 min-w-[145px] {dangerous
                 ? 'btn-error'
-                : 'btn-primary btn-outline'}"
+                : 'btn-primary'}"
               disabled={loading}
             >
               {#if loading}
@@ -148,9 +150,9 @@
           <!-- !editable -->
           <a href={editLink} class="mt-1">
             <button
-              class="btn btn-outline btn-sm {dangerous
+              class="btn btn-sm {dangerous
                 ? 'btn-error'
-                : ''} min-w-[145px]"
+                : 'btn-primary'} min-w-[145px]"
             >
               {editButtonTitle}
             </button>
@@ -164,7 +166,7 @@
         <div class="text-base">{successBody}</div>
       </div>
       <a href="/account/settings">
-        <button class="btn btn-outline btn-sm mt-3 min-w-[145px]">
+        <button class="btn btn-primary btn-sm mt-3 min-w-[145px]">
           Return to Settings
         </button>
       </a>
