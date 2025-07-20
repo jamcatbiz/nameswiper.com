@@ -1,14 +1,11 @@
 <script lang="ts">
-  import {
-    WebsiteName,
-    WebsiteBaseUrl,
-    WebsiteDescription,
-  } from "../../config"
+  import { WebsiteName, WebsiteBaseUrl, WebsiteDescription } from "../../config"
 
   // @ts-ignore
-  import { CardSwiper } from "$lib/cardSwiper"
+  import { CardSwiper, type CardData } from "$lib/cardSwiper"
   import { nameData, outOfBoundsData } from "./names"
   import { usageDate } from "./usages"
+  import { enhance } from "$app/forms"
 
   // @ts-ignore
   import IconLike from "~icons/fa6-solid/heart"
@@ -19,7 +16,7 @@
   // @ts-ignore
   import IconUndo from "~icons/fa6-solid/rotate-left"
   // @ts-ignore
-  import IconSettings from "~icons/fa6-solid/wrench"
+  import IconSettings from "~icons/fa6-solid/filter"
   // @ts-ignore
   import IconHelp from "~icons/fa6-regular/circle-question"
   // @ts-ignore
@@ -28,13 +25,10 @@
   import IconFeminine from "~icons/fa6-solid/venus"
   // @ts-ignore
   import IconNeutral from "~icons/fa6-solid/mars-and-venus"
+  import { goto } from "$app/navigation"
 
-  let swipe: (direction?: "left" | "right") => void
+  let swipe: (direction?: "left" | "right", is_super: boolean) => void
 
-  let nameDisplaySettings = $state({
-    prefix: "",
-    suffix: "",
-  })
   let nameDataFilters = $state({
     genders: {
       masculine: true,
@@ -45,6 +39,18 @@
       radioGroup: "all",
       customUsage: "African American",
     },
+  })
+
+  let nameDisplaySettings = $derived({
+    prefix: "",
+    suffix: "",
+    cardIndex:
+      nameDataFilters.allowed_usages.customUsage ||
+      nameDataFilters.genders.feminine ||
+      nameDataFilters.genders.masculine ||
+      nameDataFilters.genders.neutral
+        ? 0
+        : 0,
   })
 
   function shuffleArray(array: Array<any>) {
@@ -86,20 +92,17 @@
     return outOfBoundsData
   }
 
+  let formElement: HTMLFormElement = $state()
+  let formName = $state("Default")
+  let formPreference = $state("none")
+  let formGender = $state("neutral")
+
   function handleUndo() {
-    swipe("left")
-  }
-
-  function handleLike() {
-    swipe("right")
-  }
-
-  function handleDislike() {
-    swipe("left")
-  }
-
-  function handleSuperLike() {
-    swipe("right")
+    if (nameDisplaySettings.cardIndex - 3 >= 0) {
+      goto(
+        `/names/${filteredNameData[nameDisplaySettings.cardIndex - 3]?.title ?? "James"}`,
+      )
+    }
   }
 
   const ldJson = {
@@ -121,14 +124,14 @@
 </svelte:head>
 
 <div class="hero min-h-[60vh]">
-  <div class="hero-content text-center py-2">
+  <div class="hero-content text-center py-1">
     <div class="max-w-xl">
       <div class="flex flex-col w-full h-full">
         <div class="flex items-center">
           <p class="font-light">Swipe right for like, left for pass.</p>
           <p>
             <button
-              on:click={() => help_modal.showModal()}
+              onclick={() => help_modal.showModal()}
               class="btn btn-ghost text-lg link font-medium">Help?</button
             >
           </p>
@@ -144,41 +147,110 @@
                 {#key `${nameDataFilters.genders.feminine}-${nameDataFilters.genders.masculine}-${nameDataFilters.genders.neutral}`}
                   <CardSwiper
                     cardData={data}
-                    stateful={nameDisplaySettings}
+                    bind:formElement
+                    bind:formName
+                    bind:formPreference
+                    bind:formGender
+                    bind:stateful={nameDisplaySettings}
                     bind:swipe
                   />
                 {/key}
               {/key}
             </div>
             <div class="flex">
-              <CardSwiper cardData={fallback_data} arrowKeys={false} />
+              <CardSwiper
+                cardData={fallback_data}
+                bind:formElement
+                bind:formName
+                bind:formPreference
+                bind:formGender
+                arrowKeys={false}
+              />
             </div>
           </div>
-          <div class="">
+          <a
+            class="btn btn-xs btn-link text-base-content text-sm font-light"
+            href="/names/{filteredNameData[nameDisplaySettings.cardIndex - 2]
+              ?.title ?? 'Default'}">Learn more</a
+          >
+          <form
+            method="POST"
+            action="?/submitNamePreference"
+            bind:this={formElement}
+            use:enhance
+          >
             <div class="flex px-2 pt-4 justify-between">
+              <input type="hidden" name="name" bind:value={formName} />
+              <input type="hidden" name="gender" bind:value={formGender} />
+              <input
+                type="hidden"
+                name="preference"
+                bind:value={formPreference}
+              />
               <button
+                type="button"
                 class="btn shadow-md btn-circle btn-soft btn-warning touch-manipulation"
-                on:click={() => handleUndo()}><IconUndo /></button
+                onclick={() => {
+                  handleUndo()
+                }}><IconUndo /></button
               >
               <button
+                type="button"
+                formaction="?/submitNamePreference"
                 class="btn btn-xl shadow-lg btn-circle btn-soft btn-error touch-manipulation"
-                on:click={() => handleDislike()}><IconDislike /></button
+                onclick={() => {
+                  formName =
+                    filteredNameData[nameDisplaySettings.cardIndex - 2]
+                      ?.title ?? "Default"
+                  formGender =
+                    filteredNameData[nameDisplaySettings.cardIndex - 2]
+                      ?.gender ?? "neutral"
+                  formPreference = "dislike"
+                  swipe("left", false)
+                }}
               >
+                <IconDislike />
+              </button>
               <button
+                type="button"
                 class="btn shadow-md mt-2.5 btn-circle btn-soft btn-info touch-manipulation"
-                on:click={() => handleSuperLike()}><IconSuperLike /></button
+                onclick={() => {
+                  formName =
+                    filteredNameData[nameDisplaySettings.cardIndex - 2]
+                      ?.title ?? "Default"
+                  formGender =
+                    filteredNameData[nameDisplaySettings.cardIndex - 2]
+                      ?.gender ?? "neutral"
+                  formPreference = "super"
+                  swipe("right", true)
+                }}
               >
+                <IconSuperLike />
+              </button>
               <button
+                type="button"
                 class="btn shadow-lg btn-xl btn-circle btn-soft btn-success touch-manipulation"
-                on:click={() => handleLike()}><IconLike /></button
+                onclick={() => {
+                  formName =
+                    filteredNameData[nameDisplaySettings.cardIndex - 2]
+                      ?.title ?? "Default"
+                  formGender =
+                    filteredNameData[nameDisplaySettings.cardIndex - 2]
+                      ?.gender ?? "neutral"
+                  formPreference = "like"
+                  swipe("right", false)
+                }}
               >
+                <IconLike />
+              </button>
               <button
+                type="button"
                 class="btn shadow-md btn-circle btn-soft btn-neutral touch-manipulation"
-                on:click={() => settings_modal.showModal()}
+                onclick={() => settings_modal.showModal()}
                 ><IconSettings /></button
               >
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -189,7 +261,8 @@
   <div class="modal-box">
     <h3 class="text-lg font-bold text-center">Need Help?</h3>
     <p class="pt-2">
-      The goal is to find names that you like and remember them.
+      The goal is to find names that you like, compare with others, learn along
+      the way, and have some fun!
     </p>
     <div class="divider"></div>
     <div class="flex items-center">
@@ -236,6 +309,11 @@
     <p class="font-light">
       <a href="/account" class="link font-medium">Make an account</a> to save and
       share your preferences.
+    </p>
+    <p class="font-light pt-2">
+      Then you can <a href="/account" class="link font-medium"
+        >see and edit your likes</a
+      > later.
     </p>
 
     <div class="modal-action">

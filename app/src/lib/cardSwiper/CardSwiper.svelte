@@ -1,12 +1,14 @@
 <script lang="ts">
-  import { onMount } from "svelte"
+  import { onMount, tick } from "svelte"
   import { DragGesture, type FullGestureState } from "@use-gesture/vanilla"
   import type { CardData, Direction, SwipeEventData } from "."
   import Card from "./Card.svelte"
+  import { redirect } from "@sveltejs/kit"
 
   export let stateful = {
     prefix: "",
     suffix: "",
+    cardIndex: 0,
   }
 
   let container: HTMLElement
@@ -14,14 +16,12 @@
   let card1: HTMLElement, card2: HTMLElement
   let card1Data: CardData, card2Data: CardData
 
-  let cardIndex = 0
   let topCard: HTMLElement
   let currentZ = 100000
 
   onMount(async () => {
-    card1Data = cardData(cardIndex++)
-    card2Data = cardData(cardIndex++)
-
+    card1Data = cardData(stateful.cardIndex++)
+    card2Data = cardData(stateful.cardIndex++)
     ;[card1, card2].forEach(function (el) {
       el.style.zIndex = currentZ.toString()
       currentZ--
@@ -39,14 +39,22 @@
     el: HTMLElement,
     velocity: [number, number],
     movement: [number, number],
+    is_super: boolean = false,
   ) => {
-    // move card out of the view
-    el.classList.add("transition-transform", "duration-300")
-
     let direction: Direction = movement[0] > 0 ? "right" : "left"
     let data = el === card1 ? card1Data : card2Data
 
-    if (onSwipe) onSwipe({ direction, element: el, data, index: cardIndex - 2 })
+    formName = data.title ?? ""
+    formPreference = is_super ? "super" : movement[0] > 0 ? "like" : "dislike"
+    formGender = data.gender ?? ""
+    tick().then(() => {
+      formElement.requestSubmit()
+    })
+    // move card out of the view
+    el.classList.add("transition-transform", "duration-300")
+
+    if (onSwipe)
+      onSwipe({ direction, element: el, data, index: stateful.cardIndex - 2 })
 
     thresholdPassed = movement[0] > 0 ? 1 : -1
 
@@ -67,11 +75,11 @@
       // move card back to start position at bottom of stack and update data
       if (el === card1) {
         card1Data = {}
-        card1Data = cardData(cardIndex++)
+        card1Data = cardData(stateful.cardIndex++)
         topCard = card2
       } else {
         card2Data = {}
-        card2Data = cardData(cardIndex++)
+        card2Data = cardData(stateful.cardIndex++)
         topCard = card1
       }
 
@@ -130,11 +138,19 @@
     }
   }
 
-  export const swipe = (direction: Direction = "right") => {
+  export let formElement: HTMLFormElement
+  export let formName: string
+  export let formPreference: string
+  export let formGender: string
+
+  export const swipe = (
+    direction: Direction = "right",
+    is_super: boolean = false,
+  ) => {
     if (thresholdPassed !== 0) return
 
     let dir = direction === "left" ? -1 : 1
-    cardSwiped(topCard, [dir, 0.1], [dir, 1])
+    cardSwiped(topCard, [dir, 0.1], [dir, 1], is_super)
   }
 
   export let onSwipe: ((cardInfo: SwipeEventData) => void) | undefined =

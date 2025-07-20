@@ -43,6 +43,11 @@ export const load = async ({ fetch, data, depends, url }) => {
     .eq("id", user.id)
     .single()
 
+  const { data: name_preferences } = await supabase
+    .from("name_preferences")
+    .select("*")
+    .eq("user_id", user.id)
+
   const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
 
   const createProfilePath = "/account/create_profile"
@@ -61,6 +66,7 @@ export const load = async ({ fetch, data, depends, url }) => {
     supabase,
     session,
     profile,
+    name_preferences,
     user,
     amr: aal?.currentAuthenticationMethods,
   }

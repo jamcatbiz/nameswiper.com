@@ -68,7 +68,7 @@
     <div class="text-xl font-bold mb-3 w-48 md:pr-8 flex-none">{title}</div>
   {/if}
 
-  <div class="w-full min-w-48">
+  <div class="w-70 min-w-48">
     {#if !showSuccess}
       {#if message}
         <div class="mb-6 {dangerous ? 'alert alert-warning' : ''}">
