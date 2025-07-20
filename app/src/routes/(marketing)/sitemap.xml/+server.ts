@@ -3,8 +3,6 @@ import * as sitemap from "super-sitemap"
 import { WebsiteBaseUrl } from "../../../config"
 import { nameData } from "../names"
 
-
-
 export const prerender = true
 
 export const GET: RequestHandler = async () => {
