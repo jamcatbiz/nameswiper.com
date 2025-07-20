@@ -4,40 +4,26 @@ export const pricingPlans = [
   {
     id: "free",
     name: "Free",
-    description: "A free plan to get you started!",
+    description:
+      "A free plan to get you started! Discover names, save them, and find your favorites.",
     price: "$0",
-    priceIntervalName: "per month",
+    priceIntervalName: "forever",
     stripe_price_id: null,
-    features: ["MIT Licence", "Fast Performance", "Stripe Integration"],
+    features: ["Name Swiper", "Save and Edit Preferences"],
   },
   {
     id: "pro",
     name: "Pro",
     description:
-      "A plan to test the purchase experience. Try buying this with the test credit card 4242424242424242.",
-    price: "$5",
-    priceIntervalName: "per month",
-    stripe_price_id: "price_1NkdZCHMjzZ8mGZnRSjUm4yA",
-    stripe_product_id: "prod_OXj1CcemGMWOlU",
+      "Swiping is better with friends and family!  The Pro plan lets you compare your likes with as many users as you'd like and create goals.",
+    price: "$10.93",
+    priceIntervalName: "/year",
+    stripe_price_id: "price_1Rn1GMDCk4dDRx86acnl9EzL",
+    stripe_product_id: "prod_SiSAVR51YeObvH",
     features: [
       "Everything in Free",
-      "Support us with fake money",
-      "Test the purchase experience",
-    ],
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    description:
-      "A plan to test the upgrade experience. Try buying this with the test credit card 4242424242424242.",
-    price: "$15",
-    priceIntervalName: "per month",
-    stripe_price_id: "price_1Nkda2HMjzZ8mGZn4sKvbDAV",
-    stripe_product_id: "prod_OXj20YNpHYOXi7",
-    features: [
-      "Everything in Pro",
-      "Try the 'upgrade plan' UX",
-      "Still actually free!",
+      "Match Your Likes With Others",
+      "Make Goals and Objectives",
     ],
   },
 ]
