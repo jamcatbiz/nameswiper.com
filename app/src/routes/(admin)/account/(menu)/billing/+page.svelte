@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { getContext } from "svelte"
-  import type { Writable } from "svelte/store"
   import SettingsModule from "../settings/settings_module.svelte"
   import PricingModule from "../../../../(marketing)/pricing/pricing_module.svelte"
   import AccountNavigation from "../../AccountNavigation.svelte"
@@ -8,9 +6,6 @@
     pricingPlans,
     defaultPlanId,
   } from "../../../../(marketing)/pricing/pricing_plans"
-
-  let adminSection: Writable<string> = getContext("adminSection")
-  adminSection.set("billing")
 
   let { data } = $props()
 
@@ -23,6 +18,8 @@
 <svelte:head>
   <title>Billing</title>
 </svelte:head>
+<div class="flex flex-col items-center justify-center">
+
 <AccountNavigation active="billing" />
 
 <h1 class="text-2xl font-bold mb-2 pt-6">
@@ -57,3 +54,4 @@
     editLink="/account/billing/manage"
   />
 {/if}
+</div>
