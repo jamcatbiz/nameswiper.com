@@ -33,8 +33,12 @@
 <div class="navbar container mx-auto">
   <div class="navbar-start">
     <a class="btn btn-ghost normal-case text-xl font-bold" href="/"
-      >{WebsiteName}</a
-    >
+      >{WebsiteName}<img
+        class="h-11 w-11"
+        alt="The website logo"
+        src="/images/logo.svg"
+      />
+    </a>
   </div>
   <div class="navbar-end">
     <ul class="menu menu-horizontal px-1 font-bold text-lg">

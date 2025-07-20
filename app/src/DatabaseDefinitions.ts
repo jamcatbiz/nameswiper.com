@@ -95,6 +95,73 @@ export interface Database {
           },
         ]
       }
+      name_preferences: {
+        Row: {
+          id: string
+          updated_at: Date
+          user_id: string
+          name: string
+          gender: string
+          preference: string
+          unique: string
+        }
+        Insert: {
+          id?: string
+          updated_at?: Date
+          user_id?: string
+          name?: string
+          gender?: string
+          preference?: string
+          unique?: string
+        }
+        Update: {
+          id?: string
+          updated_at?: Date
+          user_id?: string
+          name?: string
+          gender?: string
+          preference?: string
+          unique?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "name_preferences_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "name_preferences_name_fkey"
+            columns: ["name"]
+            referencedRelation: "names"
+            referencedColumns: ["name"]
+          },
+        ]
+      }
+      names: {
+        Row: {
+          name: string
+          updated_at: Date
+          gender: string
+          description: string
+          usages: Array<string>
+        }
+        Insert: {
+          name?: string
+          updated_at?: Date
+          gender?: string
+          description?: string
+          usages?: Array<string>
+        }
+        Update: {
+          name?: string
+          updated_at?: Date
+          gender?: string
+          description?: string
+          usages?: Array<string>
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

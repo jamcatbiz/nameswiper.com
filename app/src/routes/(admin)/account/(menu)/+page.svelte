@@ -1,16 +1,21 @@
 <script lang="ts">
-  import { getContext } from "svelte"
-  import type { Writable } from "svelte/store"
+  import AccountNavigation from "../AccountNavigation.svelte"
 
   // @ts-ignore
-  import IconMatches from "~icons/fa6-solid/heart"
+  import IconMasculine from "~icons/fa6-solid/mars"
   // @ts-ignore
-  import IconSettings from "~icons/fa6-solid/gear"
+  import IconFeminine from "~icons/fa6-solid/venus"
   // @ts-ignore
-  import IconBilling from "~icons/fa6-solid/file-invoice-dollar"
+  import IconNeutral from "~icons/fa6-solid/mars-and-venus"
+  // @ts-ignore
+  import IconLike from "~icons/fa6-solid/heart"
+  // @ts-ignore
+  import IconDislike from "~icons/fa6-regular/heart"
+  // @ts-ignore
+  import IconSuperLike from "~icons/fa6-solid/star"
 
-  let adminSection: Writable<string> = getContext("adminSection")
-  adminSection.set("home")
+  let { data } = $props()
+  let { name_preferences, user } = data
 </script>
 
 <svelte:head>
@@ -18,95 +23,52 @@
 </svelte:head>
 
 <div class="flex flex-col items-center justify-center">
-  <div role="tablist" class="tabs tabs-border">
-    <a role="tab" class="tab" href="/account/settings"><IconSettings /></a>
-    <a role="tab" class="tab tab-active" href="/account"><IconMatches /></a>
-    <a role="tab" class="tab" href="/account/billing"><IconBilling /></a>
-  </div>
+  <AccountNavigation active="account" />
 
   <div class="flex items-left text-left">
-    <h1 class="text-2xl font-bold pt-6 mb-1">Dashboard</h1>
+    <h1 class="text-2xl font-bold pt-6 mb-1">Your Likes</h1>
   </div>
 
-  <div class="alert alert-error max-w-lg mt-2">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="stroke-current shrink-0 h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      ><path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-      /></svg
-    >
-    <div>
-      <div class="font-bold">Demo Content</div>
-      <div class="my-2">
-        This page is just a placeholder. Replace this page with your app's
-        content and functionality.
-      </div>
-      <div class="my-2">
-        The <a href="/account/billing" class="link">billing</a> and
-        <a href="/account/settings" class="link">settings</a> pages are functional
-        demos.
-      </div>
-    </div>
-  </div>
-
-  <div class="my-6">
-    <h1 class="text-xl font-bold mb-1">Users</h1>
-    <div
-      class="stats shadow-sm stats-vertical sm:stats-horizontal sm:w-[420px]"
-    >
-      <div class="stat place-items-center">
-        <div class="stat-title">Downloads</div>
-        <div class="stat-value">31K</div>
-        <div class="stat-desc">↗︎ 546 (2%)</div>
-      </div>
-
-      <div class="stat place-items-center">
-        <div class="stat-title">Users</div>
-        <div class="stat-value text-secondary">4,200</div>
-        <div class="stat-desc">↗︎ 40 (2%)</div>
-      </div>
-    </div>
-  </div>
-  <div class="my-6">
-    <h1 class="text-xl font-bold mb-1">Accounts</h1>
-    <div
-      class="stats shadow-sm stats-vertical sm:stats-horizontal sm:w-[420px]"
-    >
-      <div class="stat place-items-center">
-        <div class="stat-title">New Registers</div>
-        <div class="stat-value">1,200</div>
-        <div class="stat-desc">↘︎ 90 (14%)</div>
-      </div>
-
-      <div class="stat place-items-center">
-        <div class="stat-title">Churned Accounts</div>
-        <div class="stat-value">42</div>
-        <div class="stat-desc">↘︎ 6 (12%)</div>
-      </div>
-    </div>
-  </div>
-  <div class="my-6">
-    <h1 class="text-xl font-bold mb-1">Revenue</h1>
-    <div
-      class="stats shadow-sm stats-vertical sm:stats-horizontal sm:w-[420px]"
-    >
-      <div class="stat place-items-center">
-        <div class="stat-title text-success">Revenue</div>
-        <div class="stat-value text-success">$4200</div>
-        <div class="stat-desc">↗︎ $180 (4%)</div>
-      </div>
-
-      <div class="stat place-items-center">
-        <div class="stat-title">New Subscribers</div>
-        <div class="stat-value">16</div>
-        <div class="stat-desc">↘︎ 1 (%7)</div>
-      </div>
-    </div>
+  <div class="h-100 w-80 overflow-x-auto">
+    <table class="table table-pin-rows table-xs">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th><IconNeutral class="text-purple-300" /></th>
+          <th><IconLike class="text-red-300" /></th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each [...name_preferences].reverse() as name_preference}
+          <tr>
+            <td
+              ><a
+                class="btn btn-link text-base-content"
+                href="/names/{encodeURIComponent(name_preference.name)}"
+                >{name_preference.name}</a
+              ></td
+            >
+            {#if name_preference.gender === "feminine"}
+              <td><IconFeminine class="text-pink-300" /></td>
+            {:else if name_preference.gender === "masculine"}
+              <td><IconMasculine class="text-blue-300" /></td>
+            {:else if name_preference.gender === "neutral"}
+              <td><IconNeutral class="text-purple-300" /></td>
+            {:else}
+              <td>?</td>
+            {/if}
+            {#if name_preference.preference === "like"}
+              <td><IconLike class="text-red-300" /></td>
+            {:else if name_preference.preference === "dislike"}
+              <td><IconDislike class="text-red-300" /></td>
+            {:else if name_preference.preference === "super"}
+              <td><IconSuperLike class="text-indigo-300" /></td>
+            {:else}
+              <td>?</td>
+            {/if}
+          </tr>
+        {/each}
+      </tbody>
+    </table>
   </div>
 </div>

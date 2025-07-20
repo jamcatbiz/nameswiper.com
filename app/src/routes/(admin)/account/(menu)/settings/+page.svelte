@@ -1,17 +1,6 @@
 <script lang="ts">
-  import { getContext } from "svelte"
-  import type { Writable } from "svelte/store"
   import SettingsModule from "./settings_module.svelte"
-
-  // @ts-ignore
-  import IconMatches from "~icons/fa6-solid/heart"
-  // @ts-ignore
-  import IconSettings from "~icons/fa6-solid/gear"
-  // @ts-ignore
-  import IconBilling from "~icons/fa6-solid/file-invoice-dollar"
-
-  let adminSection: Writable<string> = getContext("adminSection")
-  adminSection.set("settings")
+  import AccountNavigation from "../../AccountNavigation.svelte"
 
   let { data } = $props()
   let { profile, user } = data
@@ -22,15 +11,9 @@
 </svelte:head>
 
 <div class="flex flex-col items-center justify-center">
-  <div role="tablist" class="tabs tabs-border">
-    <a role="tab" class="tab tab-active" href="/account/settings"
-      ><IconSettings /></a
-    >
-    <a role="tab" class="tab" href="/account"><IconMatches /></a>
-    <a role="tab" class="tab" href="/account/billing"><IconBilling /></a>
-  </div>
+  <AccountNavigation active="settings" />
 
-  <h1 class="text-2xl font-bold mb-6">Settings</h1>
+  <h1 class="text-2xl font-bold pt-6">Settings</h1>
 
   <SettingsModule
     title="Profile"

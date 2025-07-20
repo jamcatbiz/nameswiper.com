@@ -3,6 +3,7 @@
   import type { Writable } from "svelte/store"
   import SettingsModule from "../settings/settings_module.svelte"
   import PricingModule from "../../../../(marketing)/pricing/pricing_module.svelte"
+  import AccountNavigation from "../../AccountNavigation.svelte"
   import {
     pricingPlans,
     defaultPlanId,
@@ -22,8 +23,9 @@
 <svelte:head>
   <title>Billing</title>
 </svelte:head>
+<AccountNavigation active="billing" />
 
-<h1 class="text-2xl font-bold mb-2">
+<h1 class="text-2xl font-bold mb-2 pt-6">
   {data.isActiveCustomer ? "Billing" : "Select a Plan"}
 </h1>
 <div>
