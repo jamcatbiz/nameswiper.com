@@ -30,10 +30,10 @@
     >
       <div class="flex flex-col h-full">
         <div class="text-xl font-bold">{plan.name}</div>
-        <p class="mt-2 text-sm text-gray-500 leading-relaxed">
+        <p class="mt-2 text-sm leading-relaxed">
           {plan.description}
         </p>
-        <div class="mt-auto pt-4 text-sm text-gray-600">
+        <div class="mt-auto pt-4 text-sm">
           Plan Includes:
           <ul class="list-disc list-inside mt-2 space-y-1">
             {#each plan.features as feature}
@@ -44,11 +44,11 @@
         </div>
         <div class="pt-8">
           <span class="text-4xl font-bold">{plan.price}</span>
-          <span class="text-gray-400">{plan.priceIntervalName}</span>
+          <span class="opacity-60">{plan.priceIntervalName}</span>
           <div class="mt-6 pt-4 flex-1 flex flex-row items-center">
             {#if plan.id === currentPlanId}
               <div
-                class="btn btn-outline btn-success no-animation w-[80%] mx-auto cursor-default"
+                class="btn btn-outline btn-primary no-animation w-[80%] mx-auto cursor-default"
               >
                 Current Plan
               </div>

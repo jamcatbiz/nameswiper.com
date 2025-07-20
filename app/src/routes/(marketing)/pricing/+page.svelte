@@ -13,35 +13,35 @@
 
   const planFeatures: PlanFeatureRow[] = [
     {
-      name: "Section 1",
+      name: "Find and Like Names",
       header: true,
     },
     {
-      name: "Feature 1",
+      name: "Name Library",
       freeIncluded: true,
       proIncluded: true,
     },
     {
-      name: "Feature 2",
+      name: "Name Swiper",
+      freeIncluded: true,
+      proIncluded: true,
+    },
+    {
+      name: "Save and Edit Likes",
+      freeIncluded: true,
+      proIncluded: true,
+    },
+    {
+      name: "Swipe With Others",
+      header: true,
+    },
+    {
+      name: "Compare Likes",
       freeIncluded: false,
       proIncluded: true,
     },
     {
-      name: "Feature 3",
-      freeString: "3",
-      proString: "Unlimited",
-    },
-    {
-      name: "Section 2",
-      header: true,
-    },
-    {
-      name: "Feature 4",
-      freeIncluded: true,
-      proIncluded: true,
-    },
-    {
-      name: "Feature 5",
+      name: "Name Goals & Groups",
       freeIncluded: false,
       proIncluded: true,
     },
@@ -54,9 +54,9 @@
 </svelte:head>
 
 <div class="min-h-[70vh] pb-8 pt-[5vh] px-4">
-  <h1 class="text-3xl font-bold text-center">Pricing</h1>
-  <h2 class="text-xl text-center text-slate-500 mt-1 pb-3">
-    Totally free, scale to millions of users
+  <h1 class="text-3xl font-bold text-center">Go Pro</h1>
+  <h2 class="text-xl text-center mt-1 pb-3 opacity-70">
+    Match likes with other users
   </h2>
 
   <div class="w-full my-8">
@@ -67,48 +67,51 @@
         <div class="collapse collapse-arrow join-item border border-primary">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
-            Is this template free to use?
-          </div>
-          <div class="collapse-content">
-            <p>Yup! This template is free to use for any project.</p>
-          </div>
-        </div>
-        <div class="collapse collapse-arrow join-item border border-primary">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-lg font-medium">
-            Why does a free template have a pricing page?
+            Is this website free to use?
           </div>
           <div class="collapse-content">
             <p>
-              The pricing page is part of the boilerplate. It shows how the
-              pricing page integrates into the billing portal and the Stripe
-              Checkout flows.
+              Yup! It is free to swipe, find names, and view/edit your
+              preferences.
             </p>
           </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-primary">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
-            What license is the template under?
+            Can I match my swipes with others?
           </div>
           <div class="collapse-content">
-            <p>The template is under the MIT license.</p>
+            <p>
+              Yes, the purpose of our Pro plan is to help you connect with
+              others and work on naming together.
+            </p>
           </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-primary">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
-            Can I try out purchase flows without real a credit card?
+            Can I change plans anytime?
           </div>
           <div class="collapse-content">
             <p>
-              Our demo page <a href="https://saasstarter.work" class="link"
-                >SaasStarter.work</a
-              > has a functional demo page, using Stripe's test environment.
+              Yes! You can change plans anytime you like and cancel a
+              subscription at any point.
             </p>
-            <p class="mt-4">
-              You can use the credit card number 4242 4242 4242 4242 with any
-              future expiry date to test the payment and upgrade flows.
+          </div>
+        </div>
+        <div class="collapse collapse-arrow join-item border border-primary">
+          <input type="radio" name="faq-accordion" />
+          <div class="collapse-title text-lg font-medium">
+            Is there a free trial?
+          </div>
+          <div class="collapse-content">
+            <p>
+              If you'd like to reach out about a potential free trial or to give
+              us any feedback about pricing, please see our <a
+                class="link"
+                href="/contact_us">Contact Us Page</a
+              >
             </p>
           </div>
         </div>
@@ -143,8 +146,8 @@
     </svg>
 
     <h1 class="text-2xl font-bold text-center mt-16">Plan Features</h1>
-    <h2 class="text-xl text-center text-slate-500 mt-1 pb-3">
-      Example feature table
+    <h2 class="text-xl text-center opacity-70 mt-1 pb-3">
+      Find the right plan for you
     </h2>
 
     <div class="overflow-visible mx-auto max-w-xl mt-4">
